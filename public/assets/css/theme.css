@@ -1,0 +1,499 @@
+/*
+ * DepEd-identity design system for the Guidance Record System.
+ * Loaded AFTER the Bootstrap CDN in layouts/main.php (and on the
+ * standalone login page) so these rules override Bootstrap defaults.
+ */
+
+:root {
+    /* --- DepEd brand palette --- */
+    --deped-blue-dark: #003366;
+    --deped-blue: #0038A8;
+    --deped-blue-light: #E8F0FE;
+    --deped-gold: #FCD116;
+    --deped-gold-dark: #C9A400;
+
+    /* --- Neutrals --- */
+    --gray-50: #F8F9FA;
+    --gray-100: #F1F3F5;
+    --gray-200: #E9ECEF;
+    --gray-300: #DEE2E6;
+    --gray-400: #CED4DA;
+    --gray-500: #ADB5BD;
+    --gray-600: #6C757D;
+    --gray-700: #495057;
+    --gray-800: #343A40;
+    --gray-900: #212529;
+
+    /* --- Semantic status colors --- */
+    --danger: #DC3545;
+    --warning: #FFC107;
+    --success: #198754;
+
+    /* --- Spacing scale --- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+
+    /* --- Radius scale --- */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-pill: 999px;
+
+    /* --- Elevation --- */
+    --card-shadow: 0 2px 8px rgba(0, 51, 102, 0.08);
+    --card-shadow-hover: 0 4px 16px rgba(0, 51, 102, 0.14);
+
+    --font-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   Base / typography
+   ========================================================================== */
+
+body {
+    font-family: var(--font-base);
+    font-size: 14.5px;
+    color: var(--gray-800);
+    background-color: var(--gray-50);
+}
+
+h1, h2, h3, h4, h5, h6,
+.card-title, .card-header {
+    font-family: var(--font-base);
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+a {
+    color: var(--deped-blue);
+}
+
+a:hover {
+    color: var(--deped-blue-dark);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+}
+
+.btn-sm {
+    border-radius: var(--radius-sm);
+    padding: 0.3rem 0.7rem;
+}
+
+.btn-primary {
+    background-color: var(--deped-blue);
+    border-color: var(--deped-blue);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--deped-blue-dark) !important;
+    border-color: var(--deped-blue-dark) !important;
+}
+
+.btn-outline-primary {
+    color: var(--deped-blue);
+    border-color: var(--deped-blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--deped-blue);
+    border-color: var(--deped-blue);
+}
+
+.btn-outline-secondary {
+    color: var(--gray-700);
+    border-color: var(--gray-400);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* Gold outline — sparing secondary emphasis inside forms (e.g. "+ Add new offense type") */
+.btn-outline-gold {
+    color: var(--deped-gold-dark);
+    border: 1px solid var(--deped-gold);
+    background-color: transparent;
+}
+
+.btn-outline-gold:hover,
+.btn-outline-gold:focus {
+    background-color: var(--deped-gold);
+    border-color: var(--deped-gold);
+    color: var(--gray-900);
+}
+
+/* Gold "highlight" style — reserved for key actions like "File a Case" / "Add New" */
+.btn-highlight {
+    background-color: var(--deped-gold);
+    border-color: var(--deped-gold);
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.btn-highlight:hover,
+.btn-highlight:focus {
+    background-color: var(--deped-gold-dark);
+    border-color: var(--deped-gold-dark);
+    color: var(--gray-900);
+}
+
+/* ==========================================================================
+   Badges / pills
+   ========================================================================== */
+
+.badge {
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.4em 0.75em;
+}
+
+.text-bg-danger { background-color: var(--danger) !important; }
+.text-bg-warning { background-color: var(--warning) !important; color: var(--gray-900) !important; }
+.text-bg-success { background-color: var(--success) !important; }
+.text-bg-secondary { background-color: var(--gray-500) !important; }
+.text-bg-primary { background-color: var(--deped-blue) !important; }
+.text-bg-info { background-color: var(--deped-blue-light) !important; color: var(--deped-blue-dark) !important; }
+
+/* Gold badge — reserved for the admin role */
+.badge-gold {
+    background-color: var(--deped-gold);
+    color: var(--gray-900);
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+.card {
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid var(--gray-200);
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+/* Dashboard summary card (icon badge + big number + muted label) */
+.stat-card .card-body {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.stat-icon.gold { background-color: rgba(252, 209, 22, 0.2); color: var(--deped-gold-dark); }
+.stat-icon.blue { background-color: var(--deped-blue-light); color: var(--deped-blue); }
+.stat-icon.danger { background-color: rgba(220, 53, 69, 0.12); color: var(--danger); }
+.stat-icon.success { background-color: rgba(25, 135, 84, 0.12); color: var(--success); }
+
+.stat-value {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--gray-600);
+    font-size: 0.82rem;
+    margin-top: var(--space-1);
+}
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+.table-card .card-body,
+.table-card .table-responsive {
+    padding: 0;
+}
+
+.table thead th {
+    background-color: var(--gray-100);
+    text-transform: uppercase;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--gray-600);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: var(--deped-blue-light);
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.65rem 0.9rem;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.form-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: var(--space-1);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--deped-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 56, 168, 0.15);
+}
+
+.required-asterisk {
+    color: var(--danger);
+    margin-left: 2px;
+}
+
+/* ==========================================================================
+   App shell: sidebar
+   ========================================================================== */
+
+.app-sidebar {
+    flex-shrink: 0;
+}
+
+/*
+ * The content column's flex item has an automatic min-width of "auto" by
+ * default, meaning the browser refuses to shrink it below its content's
+ * min-content size (e.g. a wide table or a row of rigid filter selects).
+ * When that happens, the flexbox shrink algorithm pushes the excess
+ * shrinkage onto the sidebar instead, since it's the only other item with
+ * room to give. min-width: 0 removes that floor so THIS item shrinks freely
+ * and its own children scroll internally (each .table-responsive already
+ * has overflow-x: auto), instead of squeezing the sidebar. overflow-x:
+ * hidden is a safety net for any stray element that isn't table-wrapped.
+ */
+.app-main {
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/*
+ * Bootstrap's own `.offcanvas-lg.offcanvas-start` rule sets
+ * `width: var(--bs-offcanvas-width)` (400px default). Being a two-class
+ * selector, it outranks a plain single-class `.app-sidebar { width: ... }`
+ * by specificity regardless of stylesheet order, so a naive width override
+ * loses silently. Match its selector shape (and override the variable it
+ * reads) so 260px actually wins. Combined with flex-shrink: 0 above, the
+ * sidebar can no longer be squeezed narrower on pages with wider tables/
+ * filter bars (Reports, Cases) than on pages with narrower content
+ * (Dashboard, Students) — its width is now a hard constant everywhere.
+ */
+.offcanvas-lg.offcanvas-start.app-sidebar {
+    --bs-offcanvas-width: 260px;
+    width: 260px;
+}
+
+/*
+ * Bootstrap's responsive offcanvas forces
+ * `.offcanvas-lg` and `.offcanvas-lg .offcanvas-body` to
+ * `background-color: transparent !important` once the viewport clears the
+ * breakpoint (so it stops behaving like an overlay). That wins over any
+ * background-color we set on those same elements, so the sidebar's actual
+ * color/background lives on this inner wrapper div instead, one level down
+ * from where Bootstrap's override reaches.
+ */
+.app-sidebar .sidebar-inner {
+    background-color: var(--deped-blue-dark);
+    min-height: 100vh;
+}
+
+.app-sidebar .offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.app-sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-4) var(--space-3);
+}
+
+.app-sidebar .brand img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #fff;
+    flex-shrink: 0;
+}
+
+/* Sidebar width is now fixed (see above), so this box's available width —
+   and therefore how the school name wraps — is identical on every page. */
+.app-sidebar .brand-text {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.app-sidebar .brand-text .school-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #fff;
+    line-height: 1.25;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.app-sidebar .brand-text .brand-subtitle {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: normal;
+}
+
+.app-sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: var(--radius-md);
+    padding: 0.55rem 0.9rem;
+    margin: 0 var(--space-2) 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-left: 3px solid transparent;
+}
+
+.app-sidebar .nav-link i {
+    font-size: 1.05rem;
+    width: 18px;
+    text-align: center;
+}
+
+.app-sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.app-sidebar .nav-link.active {
+    background-color: rgba(252, 209, 22, 0.12);
+    border-left-color: var(--deped-gold);
+    color: #fff;
+    font-weight: 600;
+}
+
+.app-sidebar .nav-section-label {
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.45);
+    padding: 0 var(--space-4);
+    margin: var(--space-4) 0 var(--space-2);
+}
+
+.app-sidebar hr.nav-divider {
+    border-color: rgba(255, 255, 255, 0.12);
+    margin: var(--space-3) var(--space-2);
+}
+
+/* ==========================================================================
+   App shell: top navbar
+   ========================================================================== */
+
+.app-topbar {
+    background-color: #fff;
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    padding: 0.75rem 1.25rem;
+}
+
+.app-topbar .page-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--gray-900);
+    margin: 0;
+}
+
+.app-topbar .sidebar-toggle {
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    border-radius: var(--radius-md);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-role-badge {
+    background-color: var(--deped-gold);
+    color: var(--gray-900);
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    padding: 0.25rem 0.65rem;
+    font-size: 0.72rem;
+}
+
+.btn-logout-icon {
+    border: 1px solid var(--gray-300);
+    color: var(--gray-700);
+    border-radius: var(--radius-md);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+}
+
+.btn-logout-icon:hover {
+    background-color: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+}
+
+/* ==========================================================================
+   Login page
+   ========================================================================== */
+
+.login-page {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--deped-blue-light) 0%, #fff 55%, var(--deped-blue-light) 100%);
+}
+
+.login-card {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.login-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #fff;
+}
