@@ -77,7 +77,10 @@
     </div>
 </div>
 
-<?php $statusBadge = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger']; ?>
+<?php
+$statusBadge   = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger'];
+$categoryBadge = ['minor' => 'warning', 'serious' => 'serious', 'severe' => 'danger'];
+?>
 
 <div class="card table-card">
     <div class="card-header">Recent Cases</div>
@@ -106,7 +109,7 @@
                             <td><?= esc($recentCase['student_last_name'] . ', ' . $recentCase['student_first_name']) ?></td>
                             <td><?= esc($recentCase['offense_type_name']) ?></td>
                             <td>
-                                <span class="badge text-bg-<?= $recentCase['offense_type_category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize">
+                                <span class="badge text-bg-<?= $categoryBadge[$recentCase['offense_type_category']] ?? 'secondary' ?> text-capitalize">
                                     <?= esc($recentCase['offense_type_category']) ?>
                                 </span>
                             </td>
@@ -125,7 +128,7 @@
 <script>
 (function () {
     const byCategory = <?= json_encode($casesByCategory) ?>;
-    const categoryTotals = { grave: 0, minor: 0 };
+    const categoryTotals = { minor: 0, serious: 0, severe: 0 };
     byCategory.forEach(function (row) {
         categoryTotals[row.category] = parseInt(row.total, 10);
     });
@@ -133,11 +136,11 @@
     new Chart(document.getElementById('categoryChart'), {
         type: 'bar',
         data: {
-            labels: ['Grave', 'Minor'],
+            labels: ['Minor', 'Serious', 'Severe'],
             datasets: [{
                 label: 'Cases this month',
-                data: [categoryTotals.grave, categoryTotals.minor],
-                backgroundColor: ['#dc3545', '#ffc107'],
+                data: [categoryTotals.minor, categoryTotals.serious, categoryTotals.severe],
+                backgroundColor: ['#ffc107', '#fd7e14', '#dc3545'],
             }],
         },
         options: {

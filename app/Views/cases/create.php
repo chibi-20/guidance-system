@@ -37,25 +37,19 @@
             <label class="form-label">Offense Type <span class="required-asterisk">*</span></label>
             <select name="offense_type_id" id="offense_type_id" class="form-select" required>
                 <option value="">-- Select --</option>
-                <optgroup label="Grave" id="optgroup-grave">
-                    <?php foreach ($offenseTypes as $offenseType) : ?>
-                        <?php if ($offenseType['category'] === 'grave') : ?>
-                            <option value="<?= (int) $offenseType['id'] ?>" <?= (string) old('offense_type_id') === (string) $offenseType['id'] ? 'selected' : '' ?>>
-                                <?= esc($offenseType['name']) ?>
-                            </option>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </optgroup>
-                <optgroup label="Minor" id="optgroup-minor">
-                    <?php foreach ($offenseTypes as $offenseType) : ?>
-                        <?php if ($offenseType['category'] === 'minor') : ?>
-                            <option value="<?= (int) $offenseType['id'] ?>" <?= (string) old('offense_type_id') === (string) $offenseType['id'] ? 'selected' : '' ?>>
-                                <?= esc($offenseType['name']) ?>
-                            </option>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </optgroup>
+                <?php foreach (['severe' => 'Severe', 'serious' => 'Serious', 'minor' => 'Minor'] as $categoryValue => $categoryLabel) : ?>
+                    <optgroup label="<?= $categoryLabel ?>" id="optgroup-<?= $categoryValue ?>">
+                        <?php foreach ($offenseTypes as $offenseType) : ?>
+                            <?php if ($offenseType['category'] === $categoryValue) : ?>
+                                <option value="<?= (int) $offenseType['id'] ?>" <?= (string) old('offense_type_id') === (string) $offenseType['id'] ? 'selected' : '' ?>>
+                                    <?= esc($offenseType['name']) ?>
+                                </option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </optgroup>
+                <?php endforeach; ?>
             </select>
+            <p class="footnote mt-1">Offense classifications (Minor, Serious, Severe) are based on DepEd Order No. 6, s. 2026.</p>
 
             <button type="button" id="toggleQuickAdd" class="btn btn-outline-gold btn-sm mt-2">+ Add new offense type</button>
 
@@ -64,8 +58,9 @@
                     <div class="col-md-4">
                         <label class="form-label small mb-1">Category</label>
                         <select id="quickAddCategory" class="form-select form-select-sm">
-                            <option value="grave">Grave</option>
                             <option value="minor">Minor</option>
+                            <option value="serious">Serious</option>
+                            <option value="severe">Severe</option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -175,8 +170,7 @@
                 option.value = result.data.id;
                 option.textContent = result.data.name;
 
-                const groupId = result.data.category === 'grave' ? 'optgroup-grave' : 'optgroup-minor';
-                document.getElementById(groupId).appendChild(option);
+                document.getElementById('optgroup-' + result.data.category).appendChild(option);
 
                 select.value = result.data.id;
 

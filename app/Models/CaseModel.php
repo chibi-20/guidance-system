@@ -57,6 +57,25 @@ class CaseModel extends Model
     }
 
     /**
+     * Which tier (1st, 2nd, 3rd...) this specific case represents among all
+     * of a student's cases in the same CATEGORY (minor/serious/severe),
+     * counting only cases filed at or before it. The offense consequence
+     * matrix escalates per category rather than per specific offense type,
+     * so this — not countByStudentAndOffenseType — is the offense number to
+     * feed into OffenseConsequenceModel::getRecommendation(). Computed by
+     * id ordering (filing order) rather than stored on the case itself, so
+     * an earlier case's displayed tier never shifts just because a later
+     * case of the same category gets added afterward.
+     */
+    public function categoryOffenseNumberAsOf(int $studentId, string $category, int $caseId): int
+    {
+        return $this->where('student_id', $studentId)
+            ->where('category', $category)
+            ->where('id <=', $caseId)
+            ->countAllResults();
+    }
+
+    /**
      * All cases for a student, newest incident first, with the offense
      * type's name and category joined in.
      */
@@ -228,10 +247,10 @@ class CaseModel extends Model
     }
 
     /**
-     * Case counts grouped by category (grave/minor) for the current
-     * calendar month, for the dashboard chart. A category with zero cases
-     * this month simply won't appear in the result — callers should default
-     * missing categories to 0.
+     * Case counts grouped by category (minor/serious/severe) for the
+     * current calendar month, for the dashboard chart. A category with zero
+     * cases this month simply won't appear in the result — callers should
+     * default missing categories to 0.
      */
     public function getCasesByCategoryThisMonth(): array
     {

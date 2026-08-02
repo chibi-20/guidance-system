@@ -6,8 +6,9 @@
         <?php $categoryVal = old('category', $offenseType['category'] ?? ''); ?>
         <select name="category" class="form-select" required>
             <option value="">-- Select --</option>
-            <option value="grave" <?= $categoryVal === 'grave' ? 'selected' : '' ?>>Grave</option>
             <option value="minor" <?= $categoryVal === 'minor' ? 'selected' : '' ?>>Minor</option>
+            <option value="serious" <?= $categoryVal === 'serious' ? 'selected' : '' ?>>Serious</option>
+            <option value="severe" <?= $categoryVal === 'severe' ? 'selected' : '' ?>>Severe</option>
         </select>
     </div>
     <div class="col-md-8">

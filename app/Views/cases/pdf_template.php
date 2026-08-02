@@ -29,6 +29,7 @@ $mark = static fn (bool $checked): string => $checked ? '[X]' : '[ ]';
     .signature-cell { width: 33.33%; text-align: center; padding: 0 10px; }
     .signature-space { border-top: 1px solid #000; margin-top: 45px; height: 1px; }
     .signature-label { padding-top: 4px; font-size: 9.5pt; }
+    .citation-note { font-size: 7.5pt; font-style: italic; color: #555; margin: 2px 0 0 0; }
 </style>
 </head>
 <body>
@@ -86,16 +87,22 @@ $mark = static fn (bool $checked): string => $checked ? '[X]' : '[ ]';
 
 <table width="100%">
     <tr>
-        <td style="padding: 3px 4px; width: 50%;">
-            <strong>Grave Offense:</strong><br>
-            <?= $mark($case['offense_type_category'] === 'grave') ?> <?= esc($case['offense_type_name']) ?>
+        <td style="padding: 3px 4px;">
+            <strong>Offense Level:</strong>
+            <?= $mark($case['offense_type_category'] === 'minor') ?> Minor
+            &nbsp;&nbsp;
+            <?= $mark($case['offense_type_category'] === 'serious') ?> Serious
+            &nbsp;&nbsp;
+            <?= $mark($case['offense_type_category'] === 'severe') ?> Severe
         </td>
-        <td style="padding: 3px 4px; width: 50%;">
-            <strong>Minor Offense:</strong><br>
-            <?= $mark($case['offense_type_category'] === 'minor') ?> <?= esc($case['offense_type_name']) ?>
+    </tr>
+    <tr>
+        <td style="padding: 3px 4px;">
+            <strong>Offense:</strong> <?= esc($case['offense_type_name']) ?>
         </td>
     </tr>
 </table>
+<p class="citation-note">Offense classification based on DepEd Order No. 6, s. 2026.</p>
 
 <p class="section-title">Details of the Incident</p>
 <p class="boxed"><?= nl2br(esc($case['incident_report'])) ?></p>

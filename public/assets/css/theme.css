@@ -27,6 +27,7 @@
     /* --- Semantic status colors --- */
     --danger: #DC3545;
     --warning: #FFC107;
+    --serious: #FD7E14;
     --success: #198754;
 
     /* --- Spacing scale --- */
@@ -167,6 +168,8 @@ a:hover {
 
 .text-bg-danger { background-color: var(--danger) !important; }
 .text-bg-warning { background-color: var(--warning) !important; color: var(--gray-900) !important; }
+/* Mid-severity tier ("serious") — visually between warning (minor) and danger (severe). */
+.text-bg-serious { background-color: var(--serious) !important; color: #fff !important; }
 .text-bg-success { background-color: var(--success) !important; }
 .text-bg-secondary { background-color: var(--gray-500) !important; }
 .text-bg-primary { background-color: var(--deped-blue) !important; }
@@ -474,6 +477,22 @@ a:hover {
     background-color: var(--danger);
     border-color: var(--danger);
     color: #fff;
+}
+
+/* ==========================================================================
+   Citation / footnote
+   ========================================================================== */
+
+/* Reusable reference note for DepEd source citations (offense classification
+   tables, the case-filing dropdown, the printed PDF form, etc.) — small,
+   muted, and italicized so it reads as a citation rather than active content. */
+.footnote {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--gray-200);
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--gray-600);
 }
 
 /* ==========================================================================

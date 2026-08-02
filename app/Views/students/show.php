@@ -119,7 +119,10 @@
         Case History
         <a href="<?= site_url('students/' . $student['id'] . '/cases/create') ?>" class="btn btn-sm btn-highlight">+ File a Case</a>
     </div>
-    <?php $statusBadge = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger']; ?>
+    <?php
+    $statusBadge   = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger'];
+    $categoryBadge = ['minor' => 'warning', 'serious' => 'serious', 'severe' => 'danger'];
+    ?>
     <?php if (empty($cases)) : ?>
         <div class="card-body">
             <p class="text-muted mb-0">No cases yet.</p>
@@ -144,7 +147,7 @@
                             <td><?= esc($case['date_of_incident']) ?></td>
                             <td><?= esc($case['offense_type_name']) ?></td>
                             <td>
-                                <span class="badge text-bg-<?= $case['offense_type_category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize">
+                                <span class="badge text-bg-<?= $categoryBadge[$case['offense_type_category']] ?? 'secondary' ?> text-capitalize">
                                     <?= esc($case['offense_type_category']) ?>
                                 </span>
                             </td>

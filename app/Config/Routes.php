@@ -34,6 +34,8 @@ $routes->group('', ['filter' => 'auth'], static function ($routes) {
     $routes->post('/cases/(:num)/resolve', 'CaseController::resolve/$1');
     $routes->get('/cases/(:num)/pdf', 'CasePdfController::generate/$1');
 
+    $routes->get('/offense-matrix', 'OffenseMatrixController::index', ['filter' => 'role:admin,guidance']);
+
     $routes->get('/offense-types', 'OffenseTypeController::index', ['filter' => 'role:admin,guidance']);
     $routes->get('/offense-types/create', 'OffenseTypeController::create', ['filter' => 'role:admin,guidance']);
     $routes->post('/offense-types', 'OffenseTypeController::store', ['filter' => 'role:admin,guidance']);

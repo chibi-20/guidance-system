@@ -9,6 +9,7 @@ $navTitles = [
     'cases'         => 'Cases',
     'reports'       => 'Reports',
     'offense-types' => 'Manage Offense Types',
+    'offense-matrix' => 'Offense Consequence Matrix',
     'sections'      => 'Sections',
     'users'         => 'Users',
     'promotion'     => 'Promote Students',
@@ -82,6 +83,11 @@ $pageTitle = $title ?? ($navTitles[$currentSegment] ?? 'Guidance Record System')
                             <li class="nav-item">
                                 <a href="<?= site_url('offense-types') ?>" class="nav-link <?= $currentSegment === 'offense-types' ? 'active' : '' ?>">
                                     <i class="bi bi-clipboard-check"></i> Offense Types
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url('offense-matrix') ?>" class="nav-link <?= $currentSegment === 'offense-matrix' ? 'active' : '' ?>">
+                                    <i class="bi bi-diagram-3"></i> Offense Matrix
                                 </a>
                             </li>
                             <li class="nav-item">

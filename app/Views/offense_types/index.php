@@ -4,8 +4,13 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Offense Types</h2>
-    <a href="<?= site_url('offense-types/create') ?>" class="btn btn-highlight">+ Add Offense Type</a>
+    <div>
+        <a href="<?= site_url('offense-matrix') ?>" class="btn btn-outline-secondary">View Offense Matrix</a>
+        <a href="<?= site_url('offense-types/create') ?>" class="btn btn-highlight">+ Add Offense Type</a>
+    </div>
 </div>
+
+<?php $categoryBadge = ['minor' => 'warning', 'serious' => 'serious', 'severe' => 'danger']; ?>
 
 <div class="card table-card">
     <div class="table-responsive">
@@ -29,7 +34,7 @@
                 <?php foreach ($offenseTypes as $offenseType) : ?>
                     <tr class="<?= $offenseType['is_active'] ? '' : 'text-muted' ?>">
                         <td>
-                            <span class="badge text-bg-<?= $offenseType['category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize">
+                            <span class="badge text-bg-<?= $categoryBadge[$offenseType['category']] ?? 'secondary' ?> text-capitalize">
                                 <?= esc($offenseType['category']) ?>
                             </span>
                         </td>
@@ -63,5 +68,7 @@
     </table>
     </div>
 </div>
+
+<p class="footnote">Offense classifications (Minor, Serious, Severe) are based on DepEd Order No. 6, s. 2026.</p>
 
 <?= $this->endSection() ?>

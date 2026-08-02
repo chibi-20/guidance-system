@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\CaseActionModel;
 use App\Models\CaseModel;
+use App\Models\OffenseConsequenceModel;
 use App\Models\OffenseTypeModel;
 use App\Models\SchoolYearModel;
 use App\Models\StudentModel;
@@ -138,7 +139,26 @@ class CaseController extends BaseController
             $caseAction['disciplinary_action']  = json_decode((string) $caseAction['disciplinary_action'], true) ?? [];
         }
 
-        return view('cases/show', ['case' => $case, 'caseAction' => $caseAction]);
+        $categoryOffenseNumber = $caseModel->categoryOffenseNumberAsOf(
+            (int) $case['student_id'],
+            $case['category'],
+            (int) $caseId
+        );
+
+        $offenseConsequenceModel = new OffenseConsequenceModel();
+        $recommendation          = $offenseConsequenceModel->getRecommendation(
+            (int) $case['offense_type_id'],
+            $case['category'],
+            $categoryOffenseNumber
+        );
+
+        return view('cases/show', [
+            'case'                    => $case,
+            'caseAction'              => $caseAction,
+            'recommendation'          => $recommendation,
+            'ordinalCategoryOffense'  => $this->ordinal($categoryOffenseNumber),
+            'generalNote'             => $offenseConsequenceModel->getGeneralNote(),
+        ]);
     }
 
     public function resolve($caseId)

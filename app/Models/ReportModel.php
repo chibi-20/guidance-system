@@ -61,7 +61,7 @@ class ReportModel extends Model
     }
 
     /**
-     * Case counts grouped by category (grave/minor).
+     * Case counts grouped by category (minor/serious/severe).
      */
     public function summaryByCategory(string $startDate, string $endDate, array $filters = []): array
     {

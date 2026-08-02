@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+<?php $categoryBadge = ['minor' => 'warning', 'serious' => 'serious', 'severe' => 'danger']; ?>
+
 <h2 class="mb-4">Reports</h2>
 
 <form method="get" action="<?= site_url('reports') ?>" class="row g-2 mb-4">
@@ -17,8 +19,9 @@
         <label class="form-label small mb-1">Category</label>
         <select name="category" class="form-select form-select-sm">
             <option value="">All</option>
-            <option value="grave" <?= ($filters['category'] ?? '') === 'grave' ? 'selected' : '' ?>>Grave</option>
             <option value="minor" <?= ($filters['category'] ?? '') === 'minor' ? 'selected' : '' ?>>Minor</option>
+            <option value="serious" <?= ($filters['category'] ?? '') === 'serious' ? 'selected' : '' ?>>Serious</option>
+            <option value="severe" <?= ($filters['category'] ?? '') === 'severe' ? 'selected' : '' ?>>Severe</option>
         </select>
     </div>
     <div class="col-md-2">
@@ -145,7 +148,7 @@
                                 <tr>
                                     <td><?= esc($row['offense_type_name'] ?? 'Unknown') ?></td>
                                     <td>
-                                        <span class="badge text-bg-<?= $row['category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize">
+                                        <span class="badge text-bg-<?= $categoryBadge[$row['category']] ?? 'secondary' ?> text-capitalize">
                                             <?= esc($row['category']) ?>
                                         </span>
                                     </td>
@@ -254,7 +257,7 @@
                             </td>
                             <td><?= esc($case['offense_type_name']) ?></td>
                             <td>
-                                <span class="badge text-bg-<?= $case['offense_type_category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize">
+                                <span class="badge text-bg-<?= $categoryBadge[$case['offense_type_category']] ?? 'secondary' ?> text-capitalize">
                                     <?= esc($case['offense_type_category']) ?>
                                 </span>
                             </td>

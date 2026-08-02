@@ -2,7 +2,10 @@
 
 <?= $this->section('content') ?>
 
-<?php $statusBadge = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger']; ?>
+<?php
+$statusBadge   = ['open' => 'primary', 'ongoing' => 'warning', 'resolved' => 'success', 'escalated' => 'danger'];
+$categoryBadge = ['minor' => 'warning', 'serious' => 'serious', 'severe' => 'danger'];
+?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Case <?= esc($case['case_no']) ?></h2>
@@ -30,7 +33,7 @@
 
                     <dt class="col-sm-4">Offense Type</dt>
                     <dd class="col-sm-8">
-                        <span class="badge text-bg-<?= $case['offense_type_category'] === 'grave' ? 'danger' : 'warning' ?> text-capitalize me-1">
+                        <span class="badge text-bg-<?= $categoryBadge[$case['offense_type_category']] ?? 'secondary' ?> text-capitalize me-1">
                             <?= esc($case['offense_type_category']) ?>
                         </span>
                         <?= esc($case['offense_type_name']) ?>
@@ -223,7 +226,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header">Offense Counts</div>
             <div class="card-body text-center">
                 <div class="mb-3">
@@ -240,7 +243,24 @@
                 </div>
             </div>
         </div>
+
+        <?php if (! empty($recommendation)) : ?>
+            <div class="card">
+                <div class="card-header">Recommended Consequence</div>
+                <div class="card-body">
+                    <p class="mb-2">
+                        <span class="badge text-bg-<?= $categoryBadge[$case['offense_type_category']] ?? 'secondary' ?> text-capitalize"><?= esc($case['offense_type_category']) ?></span>
+                        This is the student's <strong><?= esc($ordinalCategoryOffense ?? '') ?></strong> offense at this severity level.
+                    </p>
+                    <p class="mb-0"><?= esc($recommendation['recommended_action']) ?></p>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
+
+<?php if (! empty($generalNote)) : ?>
+    <p class="text-muted small mt-4 mb-0"><?= esc($generalNote) ?></p>
+<?php endif; ?>
 
 <?= $this->endSection() ?>

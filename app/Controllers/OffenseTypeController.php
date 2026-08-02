@@ -96,7 +96,7 @@ class OffenseTypeController extends BaseController
     public function quickAdd()
     {
         $rules = [
-            'category' => 'required|in_list[grave,minor]',
+            'category' => 'required|in_list[minor,serious,severe]',
             'name'     => 'required|max_length[150]|is_unique[offense_types.name]',
         ];
 
@@ -136,7 +136,7 @@ class OffenseTypeController extends BaseController
         $nameRule = 'required|max_length[150]|is_unique[offense_types.name' . ($ignoreId !== null ? ',id,' . $ignoreId : '') . ']';
 
         return [
-            'category'       => 'required|in_list[grave,minor]',
+            'category'       => 'required|in_list[minor,serious,severe]',
             'name'           => $nameRule,
             'description'    => 'permit_empty',
             'default_action' => 'permit_empty',
